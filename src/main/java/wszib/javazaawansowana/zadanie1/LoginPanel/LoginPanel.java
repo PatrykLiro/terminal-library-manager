@@ -1,22 +1,21 @@
 package wszib.javazaawansowana.zadanie1.LoginPanel;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import wszib.javazaawansowana.zadanie1.database.IAccounts;
 import wszib.javazaawansowana.zadanie1.model.Account;
+import wszib.javazaawansowana.zadanie1.repository.UserRepository;
+import wszib.javazaawansowana.zadanie1.util.PasswordHash;
 
 public class LoginPanel implements ILoginPanel {
-    private final IAccounts accounts;
+    private final UserRepository userRepository;
 
-    public LoginPanel(IAccounts accounts) {
-        this.accounts = accounts;
+    public LoginPanel(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public Account authenticate(String username, String password) {
-        Account account = accounts.findByUsername(username);
+        Account account = userRepository.findByUsername(username);
         if (account != null) {
-            String Hashpass = DigestUtils.md2Hex(password);
-            if (Hashpass.equals(account.getPasswordHash())) {
+            if (PasswordHash.verify(password, account.getPasswordHash())) {
                 return account;
             }
         }

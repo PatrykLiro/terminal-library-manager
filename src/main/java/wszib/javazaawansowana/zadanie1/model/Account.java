@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
+    private Long id;
     private String username;
     private String passwordHash;
     private String role;

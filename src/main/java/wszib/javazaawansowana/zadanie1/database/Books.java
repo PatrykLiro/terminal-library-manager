@@ -1,61 +1,32 @@
 package wszib.javazaawansowana.zadanie1.database;
 
-import wszib.javazaawansowana.zadanie1.model.Book;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Books implements IBooks {
-    private final List<Book> books = new ArrayList<>();
-
-    public Books() {
-        add(new Book("9780140444308", "Pan Tadeusz", "Adam Mickiewicz"));
-        add(new Book("9788372320295", "Lalka", "Bolesław Prus"));
-        add(new Book("9788373273894", "Zbrodnia i kara", "Fiodor Dostojewski"));
+    @Override
+    public java.util.List<wszib.javazaawansowana.zadanie1.model.Book> findAll() {
+        return java.util.Collections.emptyList();
     }
 
     @Override
-    public List<Book> findAll() {
-        return new ArrayList<>(books);
+    public java.util.List<wszib.javazaawansowana.zadanie1.model.Book> searchByTitleOrAuthor(String q) {
+        return java.util.Collections.emptyList();
     }
 
     @Override
-    public List<Book> searchByTitleOrAuthor(String q) {
-        String qq = q.toLowerCase();
-        List<Book> res = new ArrayList<>();
-        for (Book b : books) {
-            if (b.getTitle().toLowerCase().contains(qq) || b.getAuthor().toLowerCase().contains(qq)) {
-                res.add(b);
-            }
-        }
-        return res;
-    }
-
-    @Override
-    public void add(Book book) {
-        books.add(book);
+    public void add(wszib.javazaawansowana.zadanie1.model.Book book) {
     }
 
     @Override
     public boolean removeByIsbn(String isbn) {
-        return books.removeIf(b -> b.getIsbn().equals(isbn));
+        return false;
     }
 
     @Override
-    public Book findByIsbn(String isbn) {
-        for (Book b : books) {
-            if (b.getIsbn().equals(isbn)) return b;
-        }
+    public wszib.javazaawansowana.zadanie1.model.Book findByIsbn(String isbn) {
         return null;
     }
 
     @Override
-    public boolean update(Book book) {
-        Book existing = findByIsbn(book.getIsbn());
-        if (existing != null) {
-            existing.setTitle(book.getTitle());
-            existing.setAuthor(book.getAuthor());
-            return true;
-        }
+    public boolean update(wszib.javazaawansowana.zadanie1.model.Book book) {
         return false;
     }
 }
